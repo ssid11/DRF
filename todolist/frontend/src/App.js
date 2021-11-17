@@ -28,9 +28,16 @@ class App extends React.Component {
 
    render () {
        return (
+       <>
            <div>
                <UserList users={this.state.users} />
            </div>
+        <footer>
+
+            <p>Copyright &copy; <strong>ООО "Рога и копыта".</strong> Django with React and REST API. 2021 г.</p>
+
+    </footer>
+    </>
        )
    }
 }
