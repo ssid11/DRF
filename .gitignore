@@ -1,3 +1,3 @@
 venv/
-./todolist/idea/
-
+todolist/idea/
+todolist/db.sqlite3
