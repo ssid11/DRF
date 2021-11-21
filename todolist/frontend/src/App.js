@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import axios from 'axios'
 import UserList from './components/user.js'
+import Menu from './components/menu.js'
+import Footer from './components/footer.js'
 
 
 class App extends React.Component {
@@ -29,16 +31,12 @@ class App extends React.Component {
    render () {
        return (
        <>
-       <div> Строка меню</div>
+            <Menu />
            <div>
                <UserList users={this.state.users} />
            </div>
-        <footer style={{position: 'absolute', bottom: '0'}}>
-
-            <p>Copyright &copy; <strong>ООО "Рога и копыта".</strong> Django with React and REST API. 2021 г.</p>
-
-    </footer>
-    </>
+            <Footer />
+        </>
        )
    }
 }
