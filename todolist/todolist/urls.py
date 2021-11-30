@@ -20,7 +20,7 @@ from users.views import UserModelViewSet
 from todoapp.views import ToDoModelViewSet, ProjectModelViewSet
 
 router = DefaultRouter()
-router.register('users', UserModelViewSet)
+router.register('users', UserModelViewSet, basename='users')
 router.register('todos', ToDoModelViewSet)
 router.register('projects', ProjectModelViewSet)
 urlpatterns = [
@@ -28,4 +28,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include(router.urls)),
+    # path('api/users/', include(router.urls)),
 ]
