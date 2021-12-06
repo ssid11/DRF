@@ -18,7 +18,7 @@ class ToDoModelViewSet(ListModelMixin, RetrieveModelMixin, UpdateModelMixin, Cre
    DestroyModelMixin, GenericViewSet):
    queryset = ToDo.objects.all()
    serializer_class = ToDoModelSerializer
-   pagination_class = ToDoPaginator
+   # pagination_class = ToDoPaginator
    filterset_class = ToDoFilter
 
    def perform_destroy(self, instance):
@@ -29,5 +29,5 @@ class ToDoModelViewSet(ListModelMixin, RetrieveModelMixin, UpdateModelMixin, Cre
 class ProjectModelViewSet(ModelViewSet):
    queryset = Project.objects.all()
    serializer_class = ProjectModelSerializer
-   pagination_class = ProjectPaginator
+   # pagination_class = ProjectPaginator
    filterset_class = ProjectFilter
