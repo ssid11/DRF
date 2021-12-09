@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+
 {/*}
 const Menu = () => {
    return (
@@ -24,6 +25,9 @@ const Menu = () => {
                             </li>
                             <li>
                                 <Link to='/todos'>Заметки</Link>
+                            </li>
+                            <li>
+                                <Link to='/login'>Вход</Link>
                             </li>
                         </ul>
                     </nav>

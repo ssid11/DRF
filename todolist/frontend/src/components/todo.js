@@ -5,7 +5,7 @@ const TodoItem = ({todo}) => {
    return (
        <tr>
            <td>
-               {todo.active==true ? 'Да' : 'Нет'}
+               {todo.active == true ? 'Да' : 'Нет'}
            </td>
            <td>
                {todo.author}
