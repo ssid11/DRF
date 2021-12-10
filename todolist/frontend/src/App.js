@@ -12,28 +12,28 @@ import Footer from './components/footer.js';
 import Page404 from './components/page404.js';
 import LoginForm from './components/login_form.js';
 
-import {HashRouter, Route, BrowserRouter, Redirect, Switch } from 'react-router-dom';
+import { HashRouter, Route, BrowserRouter, Redirect, Switch, Link } from 'react-router-dom';
 
 
 class App extends React.Component {
 
-   constructor(props) {
-       super(props)
-       this.state = {
-           'users': [],
-           'projects': [],
-           'todos': [],
-           'token': '',
-           'username': '',
+    constructor(props) {
+        super(props)
+        this.state = {
+            'users': [],
+            'projects': [],
+            'todos': [],
+            'token': '',
+            'username': '',
 
-       }
-   }
+        }
+    }
 
     set_token(token, username) {
         const cookies = new Cookies()
         cookies.set('token', token)
         cookies.set('username', username)
-        this.setState({'token': token}, () => this.load_data())
+        this.setState({ 'token': token,'username': username }, () => this.load_data())
     }
 
     is_auth() {
@@ -48,7 +48,7 @@ class App extends React.Component {
         const cookies = new Cookies()
         const token = cookies.get('token')
         const username = cookies.get('username')
-        this.setState({'token': token, 'username': username}, () => this.load_data())
+        this.setState({ 'token': token, 'username': username }, () => this.load_data())
     }
 
     get_headers() {
@@ -59,61 +59,55 @@ class App extends React.Component {
             headers['Authorization'] = 'Token ' + this.state.token
         }
         return headers
-        }
-
-   load_data() {
-       const headers = this.get_headers()
-       axios.get('http://127.0.0.1:8000/api/users', {headers})
-       .then(response => {
-           const users = response.data
-               this.setState(
-               {
-                   'users': users
-               }
-           )
-       }).catch(error => {this.setState({'users':[]}); console.log(error)})
-       axios.get('http://127.0.0.1:8000/api/projects', {headers})
-           .then(response => {
-               const projects = response.data
-                   console.log(projects)
-                   this.setState(
-                   {
-                       'projects': projects
-                   }
-               )
-           }).catch(error => {this.setState({'projects':[]}); console.log(error)})
-       axios.get('http://127.0.0.1:8000/api/todos', {headers})
-           .then(response => {
-               const todos = response.data
-                   console.log(todos)
-                   this.setState(
-                   {
-                       'todos': todos
-                   }
-               )
-           }).catch(error => {this.setState({'todos':[]}); console.log(error)})
-   }
-
-   load_data(){}
-
-   componentDidMount() {
-    load_data()
-
-   }
-
-   get_token(username, password) {
-    console.log('call g_t')
-    axios.post('http://127.0.0.1:8000/api-token-auth/', {username: username, password: password})
-    .then(response => {
-        this.set_token(response.data['token'], username);
-        console.log(response.data)
-    }).catch(error => alert('Неверный логин или пароль'))
     }
 
-   render () {
-       return (
-       <>
-{/*            <div>
+    load_data() {
+        const headers = this.get_headers()
+        axios.get('http://127.0.0.1:8000/api/users', { headers })
+            .then(response => {
+                const users = response.data
+                this.setState(
+                    {
+                        'users': users
+                    }
+                )
+            }).catch(error => { this.setState({ 'users': [] }); console.log(error) })
+        axios.get('http://127.0.0.1:8000/api/projects', { headers })
+            .then(response => {
+                const projects = response.data
+                this.setState(
+                    {
+                        'projects': projects
+                    }
+                )
+            }).catch(error => { this.setState({ 'projects': [] }); console.log(error) })
+        axios.get('http://127.0.0.1:8000/api/todos', { headers })
+            .then(response => {
+                const todos = response.data
+                this.setState(
+                    {
+                        'todos': todos
+                    }
+                )
+            }).catch(error => { this.setState({ 'todos': [] }); console.log(error) })
+    }
+
+    componentDidMount() {
+        this.load_data()
+
+    }
+
+    get_token(username, password) {
+        axios.post('http://127.0.0.1:8000/api-token-auth/', { username: username, password: password })
+            .then(response => {
+                this.set_token(response.data['token'], username);
+            }).catch(error => alert('Неверный логин или пароль'))
+    }
+
+    render() {
+        return (
+            <>
+                {/*            <div>
                 <HashRouter>
                   <Route exact path='/' component = {() => <UserList users={this.state.users} />} />
                    <Route exact path='/projects' component = {() => <ProjectList projects={this.state.projects} />} />
@@ -122,20 +116,39 @@ class App extends React.Component {
 
            </div>*/}
                 <BrowserRouter>
-                <Menu />
-                <Switch>
-                    <Route exact path='/' component = {() => <UserList users={this.state.users} />} />
-                    <Route exact path='/projects' component = {() => <ProjectList projects={this.state.projects} />} />
-                    <Route exact path='/todos' component = {() =><TodoList todos={this.state.todos} />} />
-                    <Route exact path='/login' component={() => <LoginForm get_token={(username, password) => this.get_token(username, password)} />} />
-                    <Redirect from='/users' to='/'/>
-                    <Route component = {Page404}/>
-                </Switch>
+                    {/*<Menu >*/}
+                    <nav>
+                        <ul>
+                            <li>
+                                <Link to='/'>Пользователи</Link>
+                            </li>
+                            <li>
+                                <Link to='/projects'>Проекты</Link>
+                            </li>
+                            <li>
+                                <Link to='/todos'>Заметки</Link>
+                            </li>
+                            <li>{this.is_auth() ?
+                                <button onClick={() => this.logout()}> Выйти </button> :
+                                <Link to='/login/'>Войти</Link>}</li>
+                            <p> Пользователь: {this.is_auth() ? this.state.username : 'неавторизован'} </p>
+                        </ul>
+                    </nav>
+                    {/*</Menu>*/}
+
+                    <Switch>
+                        <Route exact path='/' component={() => <UserList users={this.state.users} />} />
+                        <Route exact path='/projects' component={() => <ProjectList projects={this.state.projects} />} />
+                        <Route exact path='/todos' component={() => <TodoList todos={this.state.todos} />} />
+                        <Route exact path='/login' component={() => <LoginForm get_token={(username, password) => this.get_token(username, password)} />} />
+                        <Redirect from='/users' to='/' />
+                        <Route component={Page404} />
+                    </Switch>
                 </BrowserRouter>
-            <Footer />
-        </>
-       )
-   }
+                <Footer />
+            </>
+        )
+    }
 }
 
 export default App;
