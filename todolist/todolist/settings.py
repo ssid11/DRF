@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'todoapp',
     'django_filters',
     'rest_framework.authtoken',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -154,7 +155,12 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
-    ]
+    ],
+    'DEFAULT_VERSIONING_CLASS':
+        'rest_framework.versioning.URLPathVersioning',
+        # 'rest_framework.versioning.NamespaceVersioning',
+        # 'rest_framework.versioning.AcceptHeaderVersioning',
+
 }
 
 if DEBUG:
