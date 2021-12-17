@@ -1,4 +1,5 @@
 from rest_framework import generics
+from rest_framework.versioning import QueryParameterVersioning
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin, CreateModelMixin
 from .models import User
@@ -9,7 +10,7 @@ class UserModelViewSet(ListModelMixin, RetrieveModelMixin, UpdateModelMixin,  Cr
    queryset = User.objects.all()
    # serializer_class = UserModelSerializer
    serializer_class = UserModelSerializerShort
-
+   versioning_class = QueryParameterVersioning
    def get_serializer_class(self):
       if self.request.version == '2.0':
          return UserModelSerializer
