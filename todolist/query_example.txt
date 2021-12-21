@@ -1,0 +1,44 @@
+Все заметки
+{allTodo {
+  id,
+  text,
+  author {
+    username
+  },
+  project {
+    name
+  }
+}}
+
+Все проекты и пользователи, связанные с проектом.
+{allProject {
+  id,
+  name,
+  devops {
+    id,
+    username
+  }
+}
+}
+
+Заметки, по имени пользователя
+{ToDoByUser(user:"dev") {
+  id,
+  project {
+    name
+  },
+  text
+}}
+
+Удаление заметки по id
+{ToDoDelete(id:6) {
+  id
+}}
+
+Изменение заметки
+mutation ToDoUpdate{ToDoUpdate(id:5,text:"Что-то новое")
+{todo {
+  id
+  text
+}}
+}
