@@ -22,6 +22,7 @@ from todoapp.views import ToDoModelViewSet, ProjectModelViewSet
 from rest_framework.authtoken import views
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from graphene_django.views import GraphQLView
 
 router = DefaultRouter()
 router.register('users', UserModelViewSet, basename='users')
@@ -52,5 +53,7 @@ urlpatterns = [
     path('swagger/<str:format>/', schema_view.without_ui() ),
     # path('redoc/', schema_view.without_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('redoc/', schema_view.with_ui('redoc')),
-    path('api-token-auth/', views.obtain_auth_token)
+    path('api-token-auth/', views.obtain_auth_token),
+    path("graphql/", GraphQLView.as_view(graphiql=True)),
+
 ]
