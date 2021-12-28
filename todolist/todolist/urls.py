@@ -46,14 +46,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include(router.urls)),
-    path('api/users/', include(router.urls)),
-    path('api/<str:version>/users/', UserListAPIView.as_view()),
+    # path('api/users/', include(router.urls)),
+    # path('api/<str:version>/users/', UserListAPIView.as_view()),
     path('api-token-auth/', views.obtain_auth_token),
     path('swagger/', schema_view.with_ui()),
     path('swagger/<str:format>/', schema_view.without_ui() ),
-    # path('redoc/', schema_view.without_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('redoc/', schema_view.with_ui('redoc')),
-    path('api-token-auth/', views.obtain_auth_token),
     path("graphql/", GraphQLView.as_view(graphiql=True)),
 
 ]
