@@ -3,3 +3,4 @@ todolist/.idea/
 todolist/db.sqlite3
 /frontend/node_modules/
 .idea/
+__pycache__
