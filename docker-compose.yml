@@ -1,0 +1,28 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres:13.1
+    privileged: true
+    ports:
+      - 4321:5432
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password123456
+      POSTGRES_DB: todolist
+  backend:
+    build: ./todolist
+    privileged: true
+    ports:
+      - 8000:8000
+    command:
+      bash -c "
+      python manage.py migrate &&
+      python manage.py create_users &&
+      python manage.py runserver 0.0.0.0:8000
+      "
+    depends_on:
+      - db
+
+
+      
