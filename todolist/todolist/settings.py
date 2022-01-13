@@ -96,9 +96,9 @@ WSGI_APPLICATION = 'todolist.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'todolist',
+        'NAME': 'db',
         'USER':'user',
-        'PASSWORD': 'password123456',
+        'PASSWORD': '1',
         'HOST': 'db',
         'PORT': '4321',
     }
